@@ -13,7 +13,11 @@ interface InputValueReference {
   value: string;
 }
 
-const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
+interface InputRef {
+  focus(): void ;
+}
+
+const Input: React.ForwardRefRenderFunction<InputRef,InputProps> = ({ name, icon, ...rest }, ref) => {
 
   const inputElementRef = useRef<any>(null);
 
@@ -46,6 +50,7 @@ const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
         color="#666360"
       />
       <TextInput
+        ref={inputElementRef}
         keyboardAppearance="dark"
         placeholderTextColor="#666360"
         defaultValue={defaultValue}

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, KeyboardAvoidingView, Platform, View, ScrollView } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, View, ScrollView, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from "@react-navigation/native";
 import { Form } from '@unform/mobile';
@@ -22,6 +22,8 @@ import {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+
+  const passwordInputRef = useRef<TextInput>(null);
 
   // Seta o valor de uma campo.
   formRef.current?.setFieldValue
@@ -48,13 +50,26 @@ const SignIn: React.FC = () => {
             <Form style={{ width: '100%' }}ref={formRef} onSubmit={handleSignIn}>
               <Input
                 name="email"
+                autoCorrect={false} //Correção
+                autoCapitalize="none" //Caixa alta
+                keyboardType="email-address"
                 icon="mail"
                 placeholder="E-mail"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+
+                }}
               />
               <Input
+                ref={passwordInputRef}
                 name="password"
                 icon="lock"
                 placeholder="Senha"
+                secureTextEntry
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                formRef.current?.submitForm();
+              }}
               />
 
               <Button onPress={() => {
