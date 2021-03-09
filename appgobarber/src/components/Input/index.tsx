@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useImperativeHandle, forwardRef  } from 'react';
 import { TextInputProps } from 'react-native'; // Propiedados que um InputProps pode receber.
 import { useField } from '@unform/core';
 
@@ -24,6 +24,12 @@ const Input: React.ForwardRefRenderFunction<InputRef,InputProps> = ({ name, icon
   //name - Nome do Input
   const { registerField, defaultValue = '', fieldName, error } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value:  defaultValue});
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputElementRef.current.focus();
+    },
+  }));
 
   // Assim que esse elemento for exibido em tela eu registre ele dentro do Unform
   useEffect(() => {
@@ -64,4 +70,4 @@ const Input: React.ForwardRefRenderFunction<InputRef,InputProps> = ({ name, icon
 
 }
 
-export default Input;
+export default forwardRef(Input);
