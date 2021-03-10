@@ -6,6 +6,8 @@ import { Form } from "@unform/mobile";
 import { FormHandles } from "@unform/core";
 import * as Yup from 'yup';
 
+import api from '../../services/api';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
@@ -48,7 +50,10 @@ const SignUp: React.FC = () => {
           abortEarly: false, // Retorna todos os erros
         });
 
-        // await api.post("/users", data);
+        await api.post("/users", data);
+        Alert.alert('Cadastro realizado com sucesso!', 'Vocẽ já pode fazer login na aplicação.' )
+        navigation.goBack();
+
         // history.push("/");
 
       } catch (err) {
