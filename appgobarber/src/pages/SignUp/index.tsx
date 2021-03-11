@@ -12,6 +12,8 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
 
+import {useAuth} from '../../hooks/Auth';
+
 import getValidationErros from '../../utils/getValidationErros';
 
 import {
@@ -30,6 +32,8 @@ interface SignUpFormData {
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+
+  const { signIn } = useAuth();
 
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
@@ -66,7 +70,7 @@ const SignUp: React.FC = () => {
         Alert.alert("Error no cadastro!", "Ocorreu um erro ao fazer cadastro, tente novamente")
       }
     },
-    []
+    [navigation]
   );
 
   return (

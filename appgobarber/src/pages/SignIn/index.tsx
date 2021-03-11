@@ -9,6 +9,8 @@ import * as Yup from "yup";
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import {useAuth} from '../../hooks/Auth';
+
 import getValidationErros from '../../utils/getValidationErros';
 
 import logoImg from '../../assets/logo.png';
@@ -31,6 +33,8 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
+  const { signIn } = useAuth();
+
   const passwordInputRef = useRef<TextInput>(null);
 
   // Seta o valor de uma campo.
@@ -50,10 +54,10 @@ const SignIn: React.FC = () => {
           abortEarly: false, // Retorna todos os erros
         });
 
-        // await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+         await signIn({
+           email: data.email,
+           password: data.password,
+         });
 
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -68,7 +72,7 @@ const SignIn: React.FC = () => {
         )
       }
     },
-    []
+    [signIn]
   );
 
   return (
