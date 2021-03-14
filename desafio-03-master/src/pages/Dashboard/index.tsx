@@ -30,7 +30,6 @@ interface Product {
 
 const Dashboard: React.FC = () => {
   const { addToCart } = useCart();
-
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
